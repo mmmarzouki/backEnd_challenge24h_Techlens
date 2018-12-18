@@ -1,41 +1,34 @@
 var mongoose = require('mongoose'),
-  Model = mongoose.model('MyModel');
+  Team = mongoose.team('Team');
 
 exports.readAll = function(req, res) {
-    Model.find({}, function(err, model) {
+    Team.find({}, function(err, team) {
     if (err)
       res.send(err);
-    res.json(model);
+    res.json(team);
   });
 };
 exports.create = function(req, res) {
-  var new_Model = new Model(req.body);
-  new_Model.save(function(err, model) {
+  var new_Team = new Team(req.body);
+  if (!validate(new_Team)){
+    //TODO: Team new valid
+  }
+  new_Team.save(function(err, team) {
     if (err)
       res.send(err);
-    res.json(model);
+    res.json(team);
   });
 };
 exports.read = function(req, res){
   console.log(req.params.id);
-    Model.findById(req.params.id, function(err, model) {
+    Team.findById(req.params.id, function(err, team) {
     if (err)
       res.send(err);
       
-    res.json(model);
+    res.json(team);
   });
 };
-exports.update = function(req, res) {
-    Model.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, model) {
-    if (err)
-      res.send(err);
-    res.json(model);
-  });
-};
-exports.delete = function(req, res) {
-    Model.findByIdAndRemove(req.params.id, function(err, model) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Model successfully deleted' });
-  });
-};
+
+function validate(team){
+  return true;
+}
