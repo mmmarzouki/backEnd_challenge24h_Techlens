@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-  Team = mongoose.team('Team');
+  Team = mongoose.model('Team');
 
 exports.readAll = function(req, res) {
     Team.find({}, function(err, team) {
